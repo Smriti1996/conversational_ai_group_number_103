@@ -1,0 +1,397 @@
+{
+  "results": [
+    {
+      "system": "RAG",
+      "category": "high_confidence_relevant",
+      "question": "What was Apple's total net sales in 2023?",
+      "answer": "Based on the information provided in the context, Apple's total net sales in 2023 were $383.285 billion.",
+      "full_answer": "Based on the information provided in the context, Apple's total net sales in 2023 were $383.285 billion.",
+      "confidence": 0.6809037433067957,
+      "quality_score": 0.72,
+      "response_time": 350.90470814704895,
+      "question_type": "factual",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "high_confidence_relevant",
+      "question": "What was Apple's net income in 2022?",
+      "answer": "According to the provided Apple 10-K document, Apple's net income in 2022 was $99,803 million.",
+      "full_answer": "According to the provided Apple 10-K document, Apple's net income in 2022 was $99,803 million.",
+      "confidence": 0.5410284089048704,
+      "quality_score": 0.825,
+      "response_time": 17.253047943115234,
+      "question_type": "factual",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "high_confidence_relevant",
+      "question": "What were Apple's total assets at the end of 2023?",
+      "answer": "Based on the provided financial statements, Apple's total assets at the end of 2023 were $24,977 million.",
+      "full_answer": "Based on the provided financial statements, Apple's total assets at the end of 2023 were $24,977 million.",
+      "confidence": 0.31083139632476314,
+      "quality_score": 0.825,
+      "response_time": 8.415451765060425,
+      "question_type": "factual",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "high_confidence_relevant",
+      "question": "How much cash did Apple generate from operating activities in 2023?",
+      "answer": "Based on the information provided in the 2023 Form 10-K, Apple generated $110,749 million in cash from operating activities in 2023.",
+      "full_answer": "Based on the information provided in the 2023 Form 10-K, Apple generated $110,749 million in cash from operating activities in 2023.",
+      "confidence": 0.5104034147765346,
+      "quality_score": 0.825,
+      "response_time": 12.368344068527222,
+      "question_type": "factual",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "high_confidence_relevant",
+      "question": "What were Apple's research and development expenses in 2023?",
+      "answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "full_answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "confidence": 0.0,
+      "quality_score": 0.1,
+      "response_time": 10.722506046295166,
+      "question_type": "factual",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "low_confidence_relevant",
+      "question": "What are Apple's main competitive advantages?",
+      "answer": "Based on the provided financial statements and notes, Apple's main competitive advantages are not directly disclosed. However, we can infer some possible competitive advantages based on the informatio...",
+      "full_answer": "Based on the provided financial statements and notes, Apple's main competitive advantages are not directly disclosed. However, we can infer some possible competitive advantages based on the information provided:\n\n1. Brand recognition and loyalty: Apple has a strong brand reputation and customer loyalty, which can be seen in the high sales of its products and services.\n2. Innovative products and services: Apple is known for its innovative products and services, such as the iPhone, Mac, iPad, and ...",
+      "confidence": 0.3,
+      "quality_score": 0.32499999999999996,
+      "response_time": 16.944211959838867,
+      "question_type": "analytical",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "low_confidence_relevant",
+      "question": "What are the main risks facing Apple's business?",
+      "answer": "Based on the provided context, the main risks facing Apple's business are not explicitly stated. However, we can infer some potential risks based on the information provided:\n\n1. Competition: Apple op...",
+      "full_answer": "Based on the provided context, the main risks facing Apple's business are not explicitly stated. However, we can infer some potential risks based on the information provided:\n\n1. Competition: Apple operates in a highly competitive technology industry, and faces competition from other major players such as Samsung, Google, and Amazon. Increased competition could lead to lower market share and pricing pressure.\n2. Product innovation and obsolescence: Apple's success is largely dependent on its abi...",
+      "confidence": 0.3,
+      "quality_score": 0.6749999999999999,
+      "response_time": 16.053788900375366,
+      "question_type": "analytical",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "low_confidence_relevant",
+      "question": "How does Apple plan to grow its services revenue?",
+      "answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "full_answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "confidence": 0.0,
+      "quality_score": 0.1,
+      "response_time": 12.406507968902588,
+      "question_type": "strategic",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "low_confidence_relevant",
+      "question": "What is Apple's dividend policy?",
+      "answer": "According to Apple's 2022 Form 10-K filed with the SEC, the company has a dividend policy of paying a quarterly dividend to its shareholders. The amount of the dividend is determined by the Board of D...",
+      "full_answer": "According to Apple's 2022 Form 10-K filed with the SEC, the company has a dividend policy of paying a quarterly dividend to its shareholders. The amount of the dividend is determined by the Board of Directors and is typically paid in the form of cash. The dividend payment is based on the Company's net income and cash flow, and the Board of Directors may adjust the dividend payment amount from time to time.",
+      "confidence": 0.3,
+      "quality_score": 0.825,
+      "response_time": 16.197253942489624,
+      "question_type": "analytical",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "low_confidence_relevant",
+      "question": "How has Apple's gross margin changed over time?",
+      "answer": "Based on the provided context, Apple's gross margin can be calculated as follows:\n\nGross margin = Revenue - Cost of sales\n\nFrom the consolidated statements of operations, we can see that Apple's net s...",
+      "full_answer": "Based on the provided context, Apple's gross margin can be calculated as follows:\n\nGross margin = Revenue - Cost of sales\n\nFrom the consolidated statements of operations, we can see that Apple's net sales were as follows:\n\nYear Ended September 30, 2023: $383,285 million\nYear Ended September 24, 2022: $394,328 million\nYear Ended September 25, 2021: $365,817 million\n\nAnd the cost of sales was:\n\nYear Ended September 30, 202",
+      "confidence": 0.3,
+      "quality_score": 0.5,
+      "response_time": 18.515474796295166,
+      "question_type": "analytical",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "irrelevant",
+      "question": "What is the capital of France?",
+      "answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "full_answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "confidence": 0.0,
+      "quality_score": 0.1,
+      "response_time": 7.4145777225494385,
+      "question_type": "irrelevant",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "irrelevant",
+      "question": "How do you make chocolate cake?",
+      "answer": "To make a delicious chocolate cake, you will need the following ingredients and instructions:\n\nIngredients:\n\n* 2 1/4 cups all-purpose flour\n* 1 1/2 cups granulated sugar\n* 3/4 cup unsweetened cocoa po...",
+      "full_answer": "To make a delicious chocolate cake, you will need the following ingredients and instructions:\n\nIngredients:\n\n* 2 1/4 cups all-purpose flour\n* 1 1/2 cups granulated sugar\n* 3/4 cup unsweetened cocoa powder\n* 2 teaspoons baking powder\n* 1 teaspoon salt\n* 1 cup unsalted butter, at room temperature\n* 2 large eggs\n* 2 teaspoons vanilla extract\n\nInstructions:\n\n1. Preheat your oven to 350\u00b0F",
+      "confidence": 0.3,
+      "quality_score": 0.3,
+      "response_time": 24.842971801757812,
+      "question_type": "irrelevant",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "irrelevant",
+      "question": "What is quantum computing?",
+      "answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "full_answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "confidence": 0.0,
+      "quality_score": 0.1,
+      "response_time": 9.86752700805664,
+      "question_type": "irrelevant",
+      "sources_used": 3
+    },
+    {
+      "system": "RAG",
+      "category": "irrelevant",
+      "question": "What is the weather like today?",
+      "answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "full_answer": "I don't have sufficient confidence to answer this question based on the available Apple report data. Please rephrase or ask about specific financial metrics.",
+      "confidence": 0.0,
+      "quality_score": 0.1,
+      "response_time": 8.969656229019165,
+      "question_type": "irrelevant",
+      "sources_used": 3
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "high_confidence_relevant",
+      "question": "What was Apple's total net sales in 2023?",
+      "answer": "Rhhibit Observ Money Brew credibility heir substScenepress reviewingRocket ESV JrRocketJD reviewing Money Jr vendors ESV trilogy scalp conservationting hauleddit vendors Habit Habit hauled Daniel Obse...",
+      "full_answer": "Rhhibit Observ Money Brew credibility heir substScenepress reviewingRocket ESV JrRocketJD reviewing Money Jr vendors ESV trilogy scalp conservationting hauleddit vendors Habit Habit hauled Daniel Observ Rh Jr antibioticRocket Motorola Motorola intermittent ESV Jr directly heirpress credibility dispatch Brewatisf dispatch Habitatisf intermittent Jr antibioticreement reviewingSceneJDhibit credibilityreementhibit Brew intermittent credibility directly ESV reviewing autonomyoho Hancock hauledatisf Motorolareement conservationmediately circumcised Jr vendors ONEiken ProbSceneRocket Habit autonomymediately credibilityohoiken circumcisedmediately pawn dispatchJDoother directly Observ",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.33404111862182617,
+      "question_type": "factual",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "high_confidence_relevant",
+      "question": "What was Apple's net income in 2022?",
+      "answer": "subst stairs Motorola Money confirpressmediatelyreement Prob Rh stairs trilogy autonomypress ProbJD scalp Participation Observ dispatchhibit scalp TA confirreement Daniel autonomypressmediately conser...",
+      "full_answer": "subst stairs Motorola Money confirpressmediatelyreement Prob Rh stairs trilogy autonomypress ProbJD scalp Participation Observ dispatchhibit scalp TA confirreement Daniel autonomypressmediately conservation antibiotic circumcised BrewJDootherScene reviewing ONE ESV reviewingScene hauled ESV trilogypressreement reviewingoother circumcisedScene Rh Participationiken intermittent pawn Brew pawnatisf Habit Observatisf heir directly dispatch TA stairs circumcisedJD Observ ONEtingreementhibitScene conservation ESV confir ESV trilogy autonomy Observ Daniel trilogyScene Brew Motorola trilogy ESV Jr reviewingdit Motorola Motorola Participation vendors ESVpressJD Motorola Daniel",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.3125581741333008,
+      "question_type": "factual",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "high_confidence_relevant",
+      "question": "What were Apple's total assets at the end of 2023?",
+      "answer": "Observoho hauled credibility intermittentdit intermittent circumcised ONEdit pawn TA credibilityhibit directly Participation stairs trilogy intermittentatisf ESV substdit Jr TA reviewing Prob circumci...",
+      "full_answer": "Observoho hauled credibility intermittentdit intermittent circumcised ONEdit pawn TA credibilityhibit directly Participation stairs trilogy intermittentatisf ESV substdit Jr TA reviewing Prob circumcisedRocket hauled trilogyhibitpress Habit directly directly Moneymediately intermittentiken antibiotic hauled Daniel directlyoother Probatisfatisf confir Brew Rh Brew confir Money ONE pawn credibility Habit directly conservationRocketatisf subst reviewing trilogy scalp trilogy pawn trilogy Daniel MoneyJD autonomy Jr Habit intermittent Danieloother Brew stairshibit Rh Habitootherhibitiken Daniel reviewing circumcised pawntingoother TA Observ scalpohopressScene heir Motorola",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.31410813331604004,
+      "question_type": "factual",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "high_confidence_relevant",
+      "question": "How much cash did Apple generate from operating activities in 2023?",
+      "answer": "confir dispatch autonomy credibilityScene circumcisedreement stairs scalp autonomy autonomyting vendors pawnting DanielSceneatisf TA trilogy antibiotic hauled Habit intermittent MotorolaatisfJD dispat...",
+      "full_answer": "confir dispatch autonomy credibilityScene circumcisedreement stairs scalp autonomy autonomyting vendors pawnting DanielSceneatisf TA trilogy antibiotic hauled Habit intermittent MotorolaatisfJD dispatchJD credibility Brew heir vendorsting Brew stairs Prob Prob conservation scalpatisfpressoother heir trilogy autonomy Probohooother credibility Motorola circumcised vendors dispatch Hancock Habitpress conservationohoreement autonomy reviewing Brew conservationikenatisf Participation TA trilogy Hancockhibit confiriken Prob TA intermittent directly Observ Jr circumcisedRocket Participationhibit antibiotic credibility vendorsJDJD Prob Participation TA Brew Rh credibility directlydit reviewing Moneyting autonomy",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.3180100917816162,
+      "question_type": "factual",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "high_confidence_relevant",
+      "question": "What were Apple's research and development expenses in 2023?",
+      "answer": "trilogy credibility credibility antibiotic Daniel Brew subst TAoho Brew vendors ONE stairs circumcisedootherreementtingJD pawn intermittent Hancock circumcised BrewScene credibility Daniel ESV hauled ...",
+      "full_answer": "trilogy credibility credibility antibiotic Daniel Brew subst TAoho Brew vendors ONE stairs circumcisedootherreementtingJD pawn intermittent Hancock circumcised BrewScene credibility Daniel ESV hauled subst conservation dispatch intermittentJD trilogy reviewing conservation Jr ESV Motorolaoother TA ObservScenereement Rh subst Rhmediately reviewingoho Rh ESV scalp Prob circumcised Participation hauled TA Observ Participation Danieloother RhSceneatisf antibiotic trilogypress conservation reviewing trilogy Habit pawnatisf Money Money dispatch HancockScene conservation pawn Prob substRocket Hancock scalp reviewing antibiotic heir Habitoho trilogyhibitiken Probreement Hancock Habitmediately Money",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.31278491020202637,
+      "question_type": "factual",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "low_confidence_relevant",
+      "question": "What are Apple's main competitive advantages?",
+      "answer": "Habithibit stairs Motorola confir ParticipationScene antibiotic Participation antibioticatisf Motorolahibit Participation trilogyreementJDoho stairs ESV stairs Hancock Participationatisfpress vendors ...",
+      "full_answer": "Habithibit stairs Motorola confir ParticipationScene antibiotic Participation antibioticatisf Motorolahibit Participation trilogyreementJDoho stairs ESV stairs Hancock Participationatisfpress vendors dispatchoho Jr Money TA Brew Rh RhRocket Participation Hancock Jr Prob reviewingiken Rh vendorsting dispatch Daniel Brew confir autonomy Participation autonomy Money Daniel hauled Money vendors directly credibilityreement Rh hauledhibit heir Rhiken Brew TA subst autonomy credibilitytingJD stairs scalp heir Participation Habit pawn antibioticiken heir scalpiken Rhoho Money Participation circumcised ESVhibit Moneypress substhibit TA scalpting directlyohoreement",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.31717395782470703,
+      "question_type": "analytical",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "low_confidence_relevant",
+      "question": "What are the main risks facing Apple's business?",
+      "answer": "Medic rubbing 236 perhaps 236obl Tre soyOutside Medic Television mutual perhapsSexual653 praying\ufffdived bravery Redux predators soy 236shows grandchildren448 deflect BendProsshows grandchildren mutualiv...",
+      "full_answer": "Medic rubbing 236 perhaps 236obl Tre soyOutside Medic Television mutual perhapsSexual653 praying\ufffdived bravery Redux predators soy 236shows grandchildren448 deflect BendProsshows grandchildren mutualived Boone Tre predators courtyard Singapore equate representations Boone Wheels Dreams Medic factorsacious Medic membership courtyard BendOutside Tre Medic boilsSexual workshopsacious Redux membership bravery predators deflectozyg ReduxProsMini rubbing clearer representations 236 Singapore skilletacious lined Dreams Tre perhaps rubbing 236 Bend\ufffd Singaporeobl448ozyg mutual mutual Late Pocketacious skillet linedived clearer factors mutual representations equate448 Tre",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.3135349750518799,
+      "question_type": "analytical",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "low_confidence_relevant",
+      "question": "How does Apple plan to grow its services revenue?",
+      "answer": "predators 236\ufffd factorsacious Boone equate Tre predators448publicOutside Boone grandchildren factors rubbing soy workshops predatorsacious representations448ozygSexual praying grandchildren grandchildr...",
+      "full_answer": "predators 236\ufffd factorsacious Boone equate Tre predators448publicOutside Boone grandchildren factors rubbing soy workshops predatorsacious representations448ozygSexual praying grandchildren grandchildrenMost Singapore 236 factors TreivedozygMost boils lined Singaporepublic factorsshows predators TreProsMiniaciouspublic Television Singapore equate Medicozyg deflect courtyard representations\ufffdSexual Pocket clearer membership workshops grandchildrenPros653 Singapore Late lined rubbing clearer representations grandchildren membership clearerOutside 236 clearer equate 236\ufffd deflect Late Wheels Bend\ufffd predators skillet Late Televisionpublic\ufffd deflect soy factors predators Redux mutualacious Boone448 rubbing",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.3151242733001709,
+      "question_type": "strategic",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "low_confidence_relevant",
+      "question": "What is Apple's dividend policy?",
+      "answer": "press dispatchoho intermittentScene pawn hauled Habit ONERocket ONE Motorola subst scalp Money ESV vendors Habit antibiotic Prob Hancock autonomy reviewing Observ reviewing Prob Rh Prob Hancock ESV au...",
+      "full_answer": "press dispatchoho intermittentScene pawn hauled Habit ONERocket ONE Motorola subst scalp Money ESV vendors Habit antibiotic Prob Hancock autonomy reviewing Observ reviewing Prob Rh Prob Hancock ESV autonomy Habit Daniel antibioticditoother vendors MoneyScene Habit circumcised Money hauled antibiotic confir vendors Motorolatingmediately Motorolating reviewingJD pawndit circumcised ObservRocket stairs conservation stairs stairsditiken Hancock Danielmediately reviewing antibiotic scalp pawn Prob ONE dispatch Moneyatisf vendors vendors ESVpress vendors Hancock TA Money conservationhibitmediatelydit hauledting intermittent Participation Jr circumcised intermittentJD Prob directly autonomy directly",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.3095850944519043,
+      "question_type": "analytical",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "low_confidence_relevant",
+      "question": "How has Apple's gross margin changed over time?",
+      "answer": "Redux rubbing TreMini Singapore Boone Medic653Outside lined equate bravery praying LatePros representations equateMini rubbing linedpublic courtyard WheelsSexual deflect perhaps factors653653ozygived ...",
+      "full_answer": "Redux rubbing TreMini Singapore Boone Medic653Outside lined equate bravery praying LatePros representations equateMini rubbing linedpublic courtyard WheelsSexual deflect perhaps factors653653ozygived Bend rubbing Singapore soy DreamsMost Wheels Redux Wheels skilletPros 236ived 236 Bend Singapore Medic Bend Medic Wheelsobl Wheels Late 236 boilspublic Wheels factors DreamspublicivedSexual Bend653 skilletMost praying equate braveryMost clearer mutualobl predatorsaciousPros predators deflect grandchildren equate Boone grandchildren448 rubbing equate Boonepublic membership equate soy skillet boils courtyardOutsideivedacious membershipMiniSexual",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.3101990222930908,
+      "question_type": "analytical",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "irrelevant",
+      "question": "What is the capital of France?",
+      "answer": "hauled circumcisedmediately conservation autonomy directly Observoother pawn Motorolamediately stairs Probiken confir scalp TA vendors Hancock trilogy autonomyRocket stairs trilogy antibiotic directly...",
+      "full_answer": "hauled circumcisedmediately conservation autonomy directly Observoother pawn Motorolamediately stairs Probiken confir scalp TA vendors Hancock trilogy autonomyRocket stairs trilogy antibiotic directly scalpmediatelyRocket Jr scalp Habit antibioticreement Jr stairs antibiotic Rh pawn confir Prob autonomy scalp confir directly confirScene ONE Jr Habittingoho Habitatisf heir credibility circumcisedtinghibitikenScene hauled Jroho credibilityhibit trilogy hauled hauled subst ESV hauled autonomyatisf Daniel vendors Motorolaoho scalpreement HabitJD reviewingJD Jr autonomyhibitreement Money autonomy reviewing conservation hauledpresshibit Habitmediately Motorolaootheratisf",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.30925512313842773,
+      "question_type": "irrelevant",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "irrelevant",
+      "question": "How do you make chocolate cake?",
+      "answer": "Money Jrting circumcised scalp Prob ONE Hancock Rhting conservation Participationmediately TA ONEpresspress vendorsdit Hancock intermittent antibioticpress Hancock BrewRocket ONE Participationting con...",
+      "full_answer": "Money Jrting circumcised scalp Prob ONE Hancock Rhting conservation Participationmediately TA ONEpresspress vendorsdit Hancock intermittent antibioticpress Hancock BrewRocket ONE Participationting conservationatisf MoneyRocket autonomy reviewing conservation credibilityoho HabitditScene substmediately TA ESV ParticipationRocketatisf hauled Money Participation stairs Daniel Rhiken ONEpress Rh Danielpress circumcised TAtinghibitootherdithibit Money Probpress dispatch stairs stairs directly autonomyScene Jr Daniel ESV reviewing Brew Jr circumcised Participationhibit directly scalpootherting Participationiken scalp Observ Motorola stairs Motorola substreement substting",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.30934691429138184,
+      "question_type": "irrelevant",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "irrelevant",
+      "question": "What is quantum computing?",
+      "answer": "JDhibitreementoother autonomy vendors circumcisedRocketoho stairs conservation conservationiken circumcisedScene dispatchoho ONE directlyoother Participation scalp Brewtingiken TA Moneyhibit scalp Mot...",
+      "full_answer": "JDhibitreementoother autonomy vendors circumcisedRocketoho stairs conservation conservationiken circumcisedScene dispatchoho ONE directlyoother Participation scalp Brewtingiken TA Moneyhibit scalp MotorolaScene intermittentmediately intermittent Jr stairs trilogy Brew Money Motorolating vendors MoneyJD intermittentpress Prob pawnikenreement antibiotic Participation conservation Prob dispatch circumcised intermittent hauled TA ESV autonomy dispatchiken stairspress dispatch ESV scalp TA circumcised substiken circumcised autonomy conservation pawn confir reviewingohoatisf reviewing Money autonomymediately stairspress trilogy ESVdit conservation Motorolaoother ESV reviewing Jr Hancock confir scalp Money reviewing",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.31072998046875,
+      "question_type": "irrelevant",
+      "sources_used": 0
+    },
+    {
+      "system": "Fine-Tuned",
+      "category": "irrelevant",
+      "question": "What is the weather like today?",
+      "answer": "pawnohoreementRocketRocket hauled pawnatisf Rhhibit hauled Observ antibiotic confir Jrdit Rh Observ dispatchatisf Motorola reviewingmediately TA Rh conservationootherpressmediatelydit trilogy credibil...",
+      "full_answer": "pawnohoreementRocketRocket hauled pawnatisf Rhhibit hauled Observ antibiotic confir Jrdit Rh Observ dispatchatisf Motorola reviewingmediately TA Rh conservationootherpressmediatelydit trilogy credibilityoother Daniel conservation heir scalp hauledtingpress scalptinghibitatisf autonomy Prob intermittent hauled Observ hauled pawn intermittent Participation intermittent stairs subst reviewingiken haulediken ONE trilogy stairs heir TA ESV autonomyRocket Observ Hancock Hancockatisfoother reviewing trilogy credibility stairs Jr JrRocket autonomy antibioticiken Jr credibility TA HancockRocket conservationmediately circumcised trilogy Daniel Observ circumcised ONE ObservRocket Rh antibiotic",
+      "confidence": 0.85,
+      "quality_score": 0.15,
+      "response_time": 0.31069493293762207,
+      "question_type": "irrelevant",
+      "sources_used": 0
+    }
+  ],
+  "metrics": {
+    "overall": {
+      "RAG": {
+        "avg_quality": 0.45142857142857135,
+        "avg_confidence": 0.25308335452235453,
+        "avg_response_time": 37.91971630709512,
+        "std_quality": 0.32095068259678255,
+        "total_sources": 42
+      },
+      "Fine-Tuned": {
+        "avg_quality": 0.14999999999999997,
+        "avg_confidence": 0.8499999999999999,
+        "avg_response_time": 0.31408190727233887,
+        "std_quality": 2.8803322042068636e-17,
+        "total_sources": 0
+      }
+    },
+    "by_category": {
+      "high_confidence_relevant": {
+        "RAG": {
+          "quality": 0.659,
+          "confidence": 0.4086333926625928,
+          "time": 79.9328115940094
+        },
+        "Fine-Tuned": {
+          "quality": 0.15,
+          "confidence": 0.85,
+          "time": 0.3183004856109619
+        }
+      },
+      "low_confidence_relevant": {
+        "RAG": {
+          "quality": 0.485,
+          "confidence": 0.24,
+          "time": 16.023447513580322
+        },
+        "Fine-Tuned": {
+          "quality": 0.15,
+          "confidence": 0.85,
+          "time": 0.3131234645843506
+        }
+      },
+      "irrelevant": {
+        "RAG": {
+          "quality": 0.15,
+          "confidence": 0.075,
+          "time": 12.773683190345764
+        },
+        "Fine-Tuned": {
+          "quality": 0.15,
+          "confidence": 0.85,
+          "time": 0.3100067377090454
+        }
+      }
+    }
+  },
+  "timestamp": "20250824_224855"
+}
