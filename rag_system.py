@@ -9,15 +9,55 @@ import json
 import time
 import logging
 import re
+import os
 from typing import List, Dict, Any, Tuple, Optional
 from pathlib import Path
 import numpy as np
 import torch
+import streamlit as st  # Import Streamlit
 from sentence_transformers import SentenceTransformer, CrossEncoder
 import faiss
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import AutoTokenizer, AutoModelForCausalLM
+
+# --- MODIFIED: Authentication using Streamlit Secrets ---
+def setup_huggingface_auth():
+    """Setup Hugging Face authentication using Streamlit secrets or environment variables."""
+    token = None
+    # Try to get token from Streamlit secrets first (for deployed app)
+    try:
+        if 'HUGGINGFACE_HUB_TOKEN' in st.secrets:
+            token = st.secrets['HUGGINGFACE_HUB_TOKEN']
+            print("🔑 Authenticating with token from Streamlit secrets.")
+    except Exception:
+        # This will fail if not run in a Streamlit context, which is fine.
+        pass
+
+    # Fallback to environment variable (for local testing with .env file)
+    if not token:
+        token = os.getenv('HUGGINGFACE_HUB_TOKEN')
+        if token:
+            print("🔑 Authenticating with token from local environment.")
+
+    if token:
+        os.environ['HUGGINGFACE_HUB_TOKEN'] = token
+        try:
+            from huggingface_hub import login
+            # Set add_to_git_credential to False for deployment environments
+            login(token=token, add_to_git_credential=False)
+            print("✅ Authenticated with Hugging Face")
+            return True
+        except Exception as e:
+            print(f"❌ Failed to authenticate with Hugging Face: {e}")
+            return False
+    else:
+        # This message will show if no token is found anywhere
+        print("❌ HUGGINGFACE_HUB_TOKEN not found in Streamlit secrets or environment variables.")
+        return False
+
+# Authenticate before any model loading
+setup_huggingface_auth()
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -26,13 +66,11 @@ logger = logging.getLogger(__name__)
 class AppleRAGSystem:
     """RAG system specifically tuned for Apple financial reports"""
     
-    def __init__(self, 
+    def __init__(self,
                  embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
                  cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
-                 # --- MODIFIED: Using Llama-2-7b model ---
                  generator_model: str = "meta-llama/Llama-2-7b-chat-hf"):
         
-        # --- MODIFIED: Device detection for Mac compatibility ---
         if torch.cuda.is_available():
             self.device = torch.device('cuda')
         elif torch.backends.mps.is_available():
@@ -41,7 +79,6 @@ class AppleRAGSystem:
             self.device = torch.device('cpu')
         logger.info(f"Using device: {self.device}")
         
-        # Load models
         logger.info("Loading embedding model...")
         self.embedding_model = SentenceTransformer(embedding_model)
         
@@ -49,7 +86,6 @@ class AppleRAGSystem:
         self.cross_encoder = CrossEncoder(cross_encoder_model)
         
         logger.info(f"Loading generator model: {generator_model}...")
-        # --- MODIFIED: Conditional model loading for Mac/CPU ---
         self.tokenizer = AutoTokenizer.from_pretrained(generator_model, use_fast=True)
 
         if self.device.type == 'cuda':
@@ -57,66 +93,53 @@ class AppleRAGSystem:
             self.generator = AutoModelForCausalLM.from_pretrained(
                 generator_model,
                 torch_dtype=torch.float16,
-                load_in_4bit=True, # Use 4-bit only on CUDA
+                load_in_4bit=True,
                 device_map="auto",
             )
         else:
-            # Fallback for Mac (MPS) or CPU
             model_dtype = torch.float16 if self.device.type == 'mps' else torch.float32
             logger.warning(f"Loading model on {self.device.type.upper()} in {model_dtype}. This will be slow and memory-intensive.")
             self.generator = AutoModelForCausalLM.from_pretrained(
                 generator_model,
                 torch_dtype=model_dtype,
-            ).to(self.device) # Explicitly move model to the detected device
+            ).to(self.device)
 
         self.tokenizer.pad_token = self.tokenizer.eos_token
         
-        # Initialize retrieval components
         self.tfidf_vectorizer = TfidfVectorizer(max_features=5000)
         self.dense_index = None
         self.sparse_matrix = None
         self.chunks = []
         
-        # Retrieval parameters
         self.top_k_dense = 5
         self.top_k_sparse = 5
         self.rerank_top_k = 3
         
     def build_indices(self, chunks: List[Dict[str, Any]]):
-        """
-        Build both dense (FAISS) and sparse (TF-IDF) indices
-        """
         logger.info(f"Building indices for {len(chunks)} chunks...")
         self.chunks = chunks
         texts = [chunk['text'] for chunk in chunks]
         
-        # Build dense index
         logger.info("Creating dense embeddings...")
         embeddings = self.embedding_model.encode(
-            texts, 
+            texts,
             batch_size=32,
             show_progress_bar=True,
             convert_to_numpy=True
         )
         
-        # Normalize for cosine similarity
         faiss.normalize_L2(embeddings)
         
-        # Create FAISS index
         dimension = embeddings.shape[1]
         self.dense_index = faiss.IndexFlatIP(dimension)
         self.dense_index.add(embeddings)
         
-        # Build sparse index
         logger.info("Creating sparse index...")
         self.sparse_matrix = self.tfidf_vectorizer.fit_transform(texts)
         
         logger.info(f"✅ Indices built successfully!")
         
     def hybrid_retrieve(self, query: str, filter_year: str = None) -> List[Dict[str, Any]]:
-        """
-        Hybrid retrieval combining dense and sparse methods with query expansion
-        """
         expanded_query = self._expand_query(query)
         query_embedding = self.embedding_model.encode([expanded_query])
         faiss.normalize_L2(query_embedding)
@@ -185,16 +208,9 @@ class AppleRAGSystem:
         return sorted(results, key=lambda x: x['final_score'], reverse=True)[:self.rerank_top_k]
 
     def generate_answer(self, query: str, retrieved_chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """
-        Generate answer using the specified model and retrieved context.
-        """
         start_time = time.time()
-        
         context_text = "\n\n".join([chunk['chunk']['text'] for chunk in retrieved_chunks])
-        
-        # --- MODIFIED: Prompt template for Llama 2 Chat ---
         system_prompt = "You are a precise financial analyst. Answer the user's question based *only* on the provided context. Be direct and concise. If the answer is not in the context, state that the information is not available in the provided documents."
-        
         prompt = f"""<s>[INST] <<SYS>>
 {system_prompt}
 <</SYS>>
@@ -217,11 +233,8 @@ Question: {query} [/INST]"""
             )
         
         full_response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        
         answer = full_response.split("[/INST]")[-1].strip()
-        
         confidence = self._calculate_improved_confidence(query, answer, retrieved_chunks)
-        
         sources = [{'year': c['chunk']['metadata'].get('year'), 'section': c['chunk']['metadata'].get('section'), 'score': c.get('final_score', 0.0)} for c in retrieved_chunks]
         
         return {
@@ -230,15 +243,11 @@ Question: {query} [/INST]"""
             'time': time.time() - start_time,
             'sources': sources,
             'num_chunks_used': len(retrieved_chunks),
-            'method': 'Llama2-RAG' # Changed method name
+            'method': 'Llama2-RAG'
         }
 
     def answer_question(self, query: str, year_filter: str = None) -> Dict[str, Any]:
-        """
-        Complete RAG pipeline: retrieve -> rerank -> generate
-        """
         logger.info(f"Processing query: {query}")
-        
         retrieved = self.hybrid_retrieve(query, filter_year=year_filter)
         
         if not retrieved:
@@ -247,7 +256,7 @@ Question: {query} [/INST]"""
                 'confidence': 0.0,
                 'time': 0.0,
                 'sources': [],
-                'method': 'Llama2-RAG' # Changed method name
+                'method': 'Llama2-RAG'
             }
         
         reranked = self.rerank_with_cross_encoder(query, retrieved)
@@ -257,24 +266,15 @@ Question: {query} [/INST]"""
         return result
 
     def _calculate_improved_confidence(self, query: str, answer: str, retrieved_chunks: List[Dict[str, Any]]) -> float:
-        """
-        Calculate confidence based on retrieval scores and answer content.
-        """
         if not retrieved_chunks or "not available" in answer.lower():
             return 0.0
-        
         scores = [max(0.0, r.get('final_score', 0.0)) for r in retrieved_chunks]
         avg_retrieval_score = np.mean(scores) if scores else 0.0
-        
         has_number = 1.0 if re.search(r'\d', answer) else 0.0
-        
         confidence = avg_retrieval_score * 0.7 + has_number * 0.3
-        
         return max(0.0, min(confidence, 0.99))
 
 class RAGGuardrails:
-    """Input and output guardrails for RAG system"""
-    
     def __init__(self):
         self.min_confidence_threshold = 0.05
         self.max_answer_length = 500

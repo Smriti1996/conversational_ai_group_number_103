@@ -12,3 +12,5 @@
 /venv/lib/python3.9/site-packages/pyarrow/libarrow_compute.2100.dylib
 /venv/lib/python3.9/site-packages/pyarrow/libarrow.2100.dylib
 /venv/share/jupyter/nbextensions/pydeck/index.js.map
+.env
+.streamlit/

@@ -58,6 +58,44 @@ class QuickStart:
         print("✅ Both Apple reports found")
         return True
     
+    def check_huggingface_token(self):
+        """Check if Hugging Face token is configured"""
+        print("\n🔑 Checking Hugging Face authentication...")
+        
+        # Check for .env file
+        env_file = self.root_dir / ".env"
+        if env_file.exists():
+            try:
+                with open(env_file, 'r') as f:
+                    content = f.read()
+                    if "HUGGINGFACE_HUB_TOKEN=" in content:
+                        token_line = content.split("HUGGINGFACE_HUB_TOKEN=")[1].split('\n')[0].strip()
+                        if len(token_line) > 10:  # Valid token should be longer
+                            print("✅ Hugging Face token found in .env file")
+                            return True
+            except Exception as e:
+                print(f"⚠️  Error reading .env file: {e}")
+        
+        # Check environment variable
+        token = os.getenv('HUGGINGFACE_HUB_TOKEN')
+        if token and len(token) > 10:
+            print("✅ Hugging Face token found in environment")
+            return True
+        
+        print("⚠️  Hugging Face token not found!")
+        print("\nThe RAG system uses Llama-2 which requires authentication.")
+        print("\n📋 To set up authentication:")
+        print("1. Get your token from: https://huggingface.co/settings/tokens")
+        print("2. Make sure you have access to: https://huggingface.co/meta-llama/Llama-2-7b-chat-hf")
+        print("3. Create a .env file in this directory with:")
+        print("   HUGGINGFACE_HUB_TOKEN=your_token_here")
+        print("4. Or set environment variable:")
+        print("   export HUGGINGFACE_HUB_TOKEN=your_token")
+        
+        print("\n💡 Alternative: The system will work with reduced functionality using the fine-tuned model only.")
+        response = input("\nContinue anyway? (y/n): ")
+        return response.lower() == 'y'
+    
     def install_dependencies(self):
         """Install required packages"""
         print("\n📦 Installing dependencies...")
@@ -73,14 +111,21 @@ class QuickStart:
             print(f"❌ requirements.txt not found in {self.root_dir}")
             return False
             
-        subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(req_path)],
-                      check=True)
+        try:
+            subprocess.run([sys.executable, "-m", "pip", "install", "-r", str(req_path)],
+                          check=True, capture_output=True, text=True)
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Failed to install dependencies: {e}")
+            return False
         
         # Download NLTK data
         print("📚 Downloading NLTK data...")
-        subprocess.run([sys.executable, "-c", 
-                       "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)"],
-                      capture_output=True, text=True)
+        try:
+            subprocess.run([sys.executable, "-c", 
+                           "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)"],
+                          capture_output=True, text=True, check=True)
+        except subprocess.CalledProcessError:
+            print("⚠️  NLTK data download failed, but continuing...")
         
         print("✅ Dependencies installed")
         return True
@@ -110,6 +155,8 @@ class QuickStart:
             return False
         except Exception as e:
             print(f"❌ An error occurred during the pipeline: {e}")
+            import traceback
+            traceback.print_exc()
             return False
     
     def launch_interface(self):
@@ -119,7 +166,14 @@ class QuickStart:
         print("If not, navigate to: http://localhost:8501")
         print("\nPress Ctrl+C to stop the server")
         
-        subprocess.run(["streamlit", "run", "interface.py"])
+        try:
+            subprocess.run(["streamlit", "run", "interface.py"])
+        except KeyboardInterrupt:
+            print("\n⏹️  Interface stopped by user")
+        except FileNotFoundError:
+            print("❌ Streamlit not found. Please install with: pip install streamlit")
+        except Exception as e:
+            print(f"❌ Failed to launch interface: {e}")
     
     def run(self):
         """Main execution"""
@@ -134,6 +188,10 @@ class QuickStart:
         
         if not self.check_data_files():
             print("\n⏸️  Please add the Apple reports and run again")
+            return False
+        
+        if not self.check_huggingface_token():
+            print("\n⏸️  Setup stopped due to authentication issues")
             return False
         
         try:

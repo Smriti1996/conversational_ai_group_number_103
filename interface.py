@@ -13,8 +13,11 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 from datetime import datetime
+import os
 
-# Import our modules
+# --- MODIFIED: Authentication is now handled in rag_system.py upon import ---
+# We import the modules that need authentication here.
+# When rag_system is imported, its top-level auth code will run.
 from rag_system import load_and_initialize_rag
 from finetune_system import AppleFineTunedModel, FineTuneGuardrails
 
@@ -47,7 +50,6 @@ st.markdown("""
         border-radius: 0.5rem;
         border-left: 4px solid #007AFF;
     }
-    /* Style for chat messages */
     .stChatMessage {
         background-color: #ffffff;
         border: 1px solid #e0e0e0;
@@ -72,23 +74,19 @@ class AppleQAInterface:
             st.session_state.comparison_results = []
         if 'current_mode' not in st.session_state:
             st.session_state.current_mode = 'compare'
-        # Add state for chat UI
         if 'chat_messages' not in st.session_state:
             st.session_state.chat_messages = []
     
     def display_header(self):
-        """Display application header"""
         st.markdown("<h1 class='main-header'>🍎 Apple Financial Q&A System</h1>", 
                    unsafe_allow_html=True)
         st.markdown("### Compare RAG vs Fine-Tuned Models on Apple Annual Reports (2022-2023)")
         st.markdown("---")
     
     def display_sidebar(self):
-        """Display sidebar controls"""
         with st.sidebar:
             st.header("⚙️ Configuration")
             
-            # Mode selection
             mode = st.selectbox(
                 "Query Mode",
                 ["compare", "rag", "fine-tuned"],
@@ -96,7 +94,6 @@ class AppleQAInterface:
             )
             st.session_state.current_mode = mode
             
-            # Year filter for RAG
             if mode in ['rag', 'compare']:
                 st.subheader("RAG Settings")
                 year_filter = st.selectbox(
@@ -105,7 +102,6 @@ class AppleQAInterface:
                 )
                 st.session_state.year_filter = None if year_filter == "All" else year_filter
             
-            # Sample questions
             st.subheader("📝 Sample Questions")
             sample_questions = [
                 "What was Apple's total net sales in 2023?",
@@ -116,10 +112,8 @@ class AppleQAInterface:
             
             for q in sample_questions:
                 if st.button(q, use_container_width=True, key=f"sample_{q}"):
-                    # When a sample question is clicked, it becomes the prompt
                     st.session_state.prompt = q
             
-            # System metrics
             if hasattr(self, 'systems') and self.systems:
                 st.subheader("📊 System Status")
                 col1, col2 = st.columns(2)
@@ -128,17 +122,14 @@ class AppleQAInterface:
                 with col2:
                     st.metric("Q&A Pairs", len(self.systems['data']['qa_pairs']))
             
-            # History for Analytics Tab
             if st.session_state.questions_history:
                 st.subheader("📜 Recent Questions (for Analytics)")
                 for q in st.session_state.questions_history[-5:]:
                     st.text(f"• {q[:30]}...")
     
     def process_question(self, question: str):
-        """Process question through selected system(s)"""
         results = {}
         
-        # RAG System
         if st.session_state.current_mode in ['rag', 'compare']:
             with st.spinner("🔍 RAG system processing..."):
                 year_filter = getattr(st.session_state, 'year_filter', None)
@@ -146,18 +137,15 @@ class AppleQAInterface:
                 rag_result = self.systems['rag_guardrails'].validate_output(rag_result)
                 results['rag'] = rag_result
         
-        # Fine-Tuned System
         if st.session_state.current_mode in ['fine-tuned', 'compare']:
             with st.spinner("🧠 Fine-tuned model processing..."):
                 ft_result = self.systems['ft'].generate_answer(question)
                 ft_result = self.systems['ft_guardrails'].validate_output(ft_result)
                 results['ft'] = ft_result
         
-        # Add to history for Analytics tab
         if question not in st.session_state.questions_history:
             st.session_state.questions_history.append(question)
         
-        # Store comparison for Analytics tab
         if 'rag' in results and 'ft' in results:
             st.session_state.comparison_results.append({
                 'question': question,
@@ -170,47 +158,35 @@ class AppleQAInterface:
         return results
     
     def display_results(self, results: dict, question: str):
-        """Display results from system(s)"""
         st.subheader(f"❓ Question: {question}")
         
         if st.session_state.current_mode == 'compare':
-            # Side-by-side comparison
             col1, col2 = st.columns(2)
-            
             with col1:
                 st.markdown("### 🔍 RAG System")
                 self.display_single_result(results.get('rag'), 'rag')
-            
             with col2:
                 st.markdown("### 🧠 Fine-Tuned Model")
                 self.display_single_result(results.get('ft'), 'ft')
-            
-            # Comparison metrics
             st.markdown("### 📊 Comparison")
             self.display_comparison(results)
-            
         else:
-            # Single system result
             system_name = "RAG" if st.session_state.current_mode == 'rag' else "Fine-Tuned"
             system_key = 'rag' if st.session_state.current_mode == 'rag' else 'ft'
             st.markdown(f"### {system_name} System")
             self.display_single_result(results.get(system_key), system_key)
     
     def display_single_result(self, result: dict, system: str):
-        """Display single system result"""
         if not result:
             st.error("No result available")
             return
         
-        # Answer
         st.markdown("<div class='answer-box'>", unsafe_allow_html=True)
         st.write("**Answer:**")
         st.write(result['answer'])
         st.markdown("</div>", unsafe_allow_html=True)
         
-        # Metrics in a single row
         confidence_color = "🟢" if result['confidence'] > 0.7 else "🟡" if result['confidence'] > 0.4 else "🔴"
-        
         st.write(f"**Confidence:** {confidence_color} {result['confidence']:.1%} | **Response Time:** {result['time']:.2f}s")
         
         if system == 'rag' and 'sources' in result:
@@ -218,7 +194,6 @@ class AppleQAInterface:
         else:
             st.write(f"**Method:** {result.get('method', 'Fine-Tuned')}")
         
-        # Sources for RAG
         if system == 'rag' and 'sources' in result and result['sources']:
             with st.expander("📚 View Sources"):
                 for i, source in enumerate(result['sources'][:3]):
@@ -228,11 +203,9 @@ class AppleQAInterface:
                     st.write(f"- Relevance: {source.get('score', 0):.2f}")
     
     def display_comparison(self, results: dict):
-        """Display comparison visualization"""
         if 'rag' not in results or 'ft' not in results:
             return
         
-        # Performance comparison chart
         fig = go.Figure(data=[
             go.Bar(name='RAG', x=['Confidence', 'Speed (1/time)'], 
                   y=[results['rag']['confidence'], 1/results['rag']['time']]),
@@ -242,8 +215,6 @@ class AppleQAInterface:
         fig.update_layout(title="Performance Comparison", barmode='group', height=300)
         st.plotly_chart(fig, use_container_width=True)
         
-        # Metrics table
-        # FIX: Ensure all values are strings to prevent ArrowTypeError
         comparison_df = pd.DataFrame({
             'Metric': ['Confidence', 'Response Time', 'Answer Length'],
             'RAG': [
@@ -260,19 +231,15 @@ class AppleQAInterface:
         st.dataframe(comparison_df, use_container_width=True)
     
     def display_analytics(self):
-        """Display analytics dashboard"""
         if not st.session_state.comparison_results:
             st.info("No comparison data available yet. Ask some questions first!")
             return
         
         st.subheader("📈 Analytics Dashboard")
-        
         df = pd.DataFrame(st.session_state.comparison_results)
-        
         col1, col2 = st.columns(2)
         
         with col1:
-            # Average response times
             fig = go.Figure(data=[
                 go.Bar(x=['RAG', 'Fine-Tuned'], 
                       y=[df['rag_time'].mean(), df['ft_time'].mean()],
@@ -282,7 +249,6 @@ class AppleQAInterface:
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            # Average confidence
             fig = go.Figure(data=[
                 go.Bar(x=['RAG', 'Fine-Tuned'], 
                       y=[df['rag_confidence'].mean(), df['ft_confidence'].mean()],
@@ -291,19 +257,17 @@ class AppleQAInterface:
             fig.update_layout(title="Average Confidence", yaxis_title="Confidence Score", height=300)
             st.plotly_chart(fig, use_container_width=True)
         
-        # Questions table
         st.subheader("Question History")
         history_df = df[['question', 'rag_confidence', 'ft_confidence']].copy()
         history_df.columns = ['Question', 'RAG Confidence', 'FT Confidence']
         st.dataframe(history_df, use_container_width=True)
     
     def run(self):
-        """Main application loop"""
         self.display_header()
         self.systems = load_systems()
         
         if not self.systems:
-            st.error("Failed to load systems. Please run `python main.py` first to initialize.")
+            st.error("Failed to load systems. Please check logs for authentication or model loading errors.")
             return
         
         self.display_sidebar()
@@ -311,29 +275,23 @@ class AppleQAInterface:
         tab1, tab2, tab3 = st.tabs(["💬 Q&A", "📊 Analytics", "📚 Documentation"])
         
         with tab1:
-            # Display chat messages from history
             for message in st.session_state.chat_messages:
                 with st.chat_message(message["role"]):
                     if message["role"] == "user":
                         st.markdown(f"**You:** {message['content']}")
-                    else: # role == "assistant"
+                    else:
                         self.display_results(message["content"], message["question"])
 
-            # Check if a sample question was clicked and set it as the prompt
             if "prompt" in st.session_state and st.session_state.prompt:
                 prompt = st.session_state.prompt
-                del st.session_state.prompt # Clear after use
+                del st.session_state.prompt
             else:
                 prompt = st.chat_input("Ask a question about Apple's financials...")
 
             if prompt:
-                # Add user message to chat history
                 st.session_state.chat_messages.append({"role": "user", "content": prompt})
-                # Process the question to get results
                 results = self.process_question(prompt)
-                # Add assistant response to chat history
                 st.session_state.chat_messages.append({"role": "assistant", "content": results, "question": prompt})
-                # Rerun to display the new messages immediately
                 st.rerun()
 
         with tab2:
@@ -387,7 +345,6 @@ def load_systems():
         return None
 
 def main():
-    """Main entry point for Streamlit app"""
     app = AppleQAInterface()
     app.run()
 
