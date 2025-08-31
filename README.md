@@ -1,4 +1,4 @@
-# 📊 PayPal Financial Q&A System - Implementation Report
+# 📊 Apple Financial Q&A System - Implementation Report
 
 **Project**: Comparative Analysis of RAG vs Fine-Tuned Models for Financial Document Q&A  
 **Data Source**: PayPal Annual Reports (2023 & 2024)  
