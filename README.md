@@ -608,7 +608,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 
 ### Final Verdict
 
-**For PayPal's use case**, we recommend a **hybrid deployment**:
+**For Apple's use case**, we recommend a **hybrid deployment**:
 
 - **Primary System**: RAG for all factual queries and reporting
 - **Secondary System**: Fine-tuned model for analytical insights
@@ -677,13 +677,3 @@ paypal-qa-system/
 - Storage: 20 GB SSD
 - Python: 3.10+
 
-### D. Citation
-
-```bibtex
-@article{paypal-qa-system-2025,
-  title={Comparative Analysis of RAG vs Fine-Tuned Models for Financial Document Q&A},
-  author={Financial AI Development Team},
-  year={2025},
-  note={Implementation using PayPal Annual Reports 2023-2024}
-}
-```
