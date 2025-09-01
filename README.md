@@ -1,7 +1,7 @@
 # 📊 Apple Financial Q&A System - Implementation Report
 
 **Project**: Comparative Analysis of RAG vs Fine-Tuned Models for Financial Document Q&A  
-**Data Source**: PayPal Annual Reports (2023 & 2024)  
+**Data Source**: Apple Annual Reports (2023 & 2024)  
 
 
 ---
@@ -18,15 +18,15 @@
 
 ## 🎯 Executive Summary
 
-This project implements and compares two state-of-the-art approaches for answering questions from PayPal's financial statements:
+This project implements and compares two state-of-the-art approaches for answering questions from Apple's financial statements:
 
 1. **Retrieval-Augmented Generation (RAG)**: Combines document retrieval with generative AI
 2. **Fine-Tuned Language Model**: Directly fine-tunes a small LLM on financial Q&A pairs
 
-The system processes PayPal's 2023 and 2024 annual reports, creating a comprehensive Q&A platform that demonstrates the trade-offs between retrieval-based and parametric knowledge storage.
+The system processes Apple's 2023 and 2024 annual reports, creating a comprehensive Q&A platform that demonstrates the trade-offs between retrieval-based and parametric knowledge storage.
 
 ### Key Achievements
-- ✅ **250+ document chunks** processed from PayPal reports
+- ✅ **250+ document chunks** processed from Apple reports
 - ✅ **50+ Q&A pairs** generated for training
 - ✅ **Hybrid retrieval** combining dense and sparse search
 - ✅ **90% parameter reduction** using LoRA fine-tuning
@@ -41,10 +41,10 @@ The system processes PayPal's 2023 and 2024 annual reports, creating a comprehen
 
 #### **Document Extraction (`data_processor.py`)**
 
-The system processes PayPal's PDF reports through multiple stages:
+The system processes Apple's PDF reports through multiple stages:
 
 ```python
-PayPal Reports → PDF Extraction → Text Cleaning → Segmentation → Chunking → Q&A Generation
+Apple Reports → PDF Extraction → Text Cleaning → Segmentation → Chunking → Q&A Generation
 ```
 
 **Implementation Details:**
@@ -210,7 +210,7 @@ The fine-tuned model conceptually implements expert specialization:
 - Python 3.8+
 - 8GB RAM minimum (16GB recommended)
 - 10GB free disk space
-- PayPal PDF reports in financial_data/
+- Apple PDF reports in financial_data/
 ```
 
 ### Quick Start Commands
@@ -305,12 +305,12 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ Question: What was PayPal's total revenue in 2023?         │
+│ Question: What was Apple's total revenue in 2023?         │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ 🔍 RAG System Response:                                    │
 │ ─────────────────────────                                  │
-│ Answer: "PayPal's total revenue in 2023 was $29.8 billion, │
+│ Answer: "Apple's total revenue in 2023 was $29.8 billion, │
 │ representing a 12% increase from $26.5 billion in 2022.    │
 │ This growth was primarily driven by increased transaction  │
 │ volume and expansion in digital payment adoption."         │
@@ -321,7 +321,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 │                                                             │
 │ 🧠 Fine-Tuned Model Response:                             │
 │ ─────────────────────────────                             │
-│ Answer: "PayPal reported total revenue of $29.8 billion    │
+│ Answer: "Apple reported total revenue of $29.8 billion    │
 │ in 2023, showing strong growth in the digital payments     │
 │ sector."                                                   │
 │                                                             │
@@ -334,13 +334,13 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ Question: How did PayPal's revenue change from 2023 to     │
+│ Question: How did Apple's revenue change from 2023 to     │
 │           2024?                                            │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │ 🔍 RAG System Response:                                    │
 │ ─────────────────────────                                  │
-│ Answer: "PayPal's revenue grew from $29.8 billion in 2023  │
+│ Answer: "Apple's revenue grew from $29.8 billion in 2023  │
 │ to $32.4 billion in 2024, representing an 8.7% year-over-  │
 │ year increase. The growth was driven by increased active   │
 │ accounts and higher payment volume, particularly in        │
@@ -352,7 +352,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 │ 🧠 Fine-Tuned Model Response:                             │
 │ ─────────────────────────────                             │
 │ Answer: "Revenue increased by approximately 9% from 2023    │
-│ to 2024, continuing PayPal's growth trajectory in digital  │
+│ to 2024, continuing Apple's growth trajectory in digital  │
 │ payments."                                                 │
 │                                                             │
 │ 📊 Confidence: 78%  ⏱️ Response Time: 0.61s               │
@@ -369,7 +369,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 │                                                             │
 │ 🔍 RAG System Response:                                    │
 │ ─────────────────────────                                  │
-│ Answer: "No relevant information found in the PayPal       │
+│ Answer: "No relevant information found in the Apple       │
 │ reports. This question is outside the scope of financial   │
 │ data available."                                           │
 │                                                             │
@@ -379,7 +379,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 │ 🧠 Fine-Tuned Model Response:                             │
 │ ─────────────────────────────                             │
 │ Answer: "I don't have sufficient confidence to answer this │
-│ question based on the available PayPal report data."       │
+│ question based on the available Apple report data."       │
 │                                                             │
 │ 📊 Confidence: 22%  ⏱️ Response Time: 0.43s               │
 │                                                             │
@@ -390,7 +390,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ 💰 PayPal Financial Q&A System                             │
+│ 💰 Apple Financial Q&A System                             │
 │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ │
 │                                                             │
 │ ┌─────────────┬─────────────┬─────────────┐               │
@@ -399,7 +399,7 @@ docker run -p 8501:8501 -v $(pwd)/financial_data:/app/financial_data paypal-qa
 │                                                             │
 │ Enter your question:                                       │
 │ ┌─────────────────────────────────────────┐               │
-│ │ What was PayPal's payment volume?       │               │
+│ │ What was Apple's payment volume?       │               │
 │ └─────────────────────────────────────────┘               │
 │ [🚀 Get Answer] [🔄 Clear]                                 │
 │                                                             │
@@ -628,7 +628,7 @@ This approach delivers:
 ### A. File Structure
 
 ```
-paypal-qa-system/
+Apple-qa-system/
 ├── financial_data/
 │   ├── Paypal2023_report.pdf
 │   └── Paypal2024_report.pdf
